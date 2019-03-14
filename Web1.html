@@ -4,47 +4,110 @@
 	<style type="text/css">
         
     #top_bar {
-    	width: 1900px;
-    	height: 100px;
+    	width: 1850px;
+    	height: 50px;
     	background: #a4b3ff;
 		color: white;
+		padding: 25px;
     }
         
     #content {
         width: 1400px;
         height: 5000px;
 		float: left;
-        background: #cacaca;
+        background: #dcdcdc;
         color: black;
     }
         
     #left_menu {
-		width: 250px;
+		width: 225px;
 		height: 5000px;
 		float: left;
 		background: #9c89c1;
 		color: white;
+        padding-top: 25px;
+		padding-left: 25px;
 	}
     
     #right_menu {
-        width: 250px;
-		height: 800px;
+        width: 225px;
+		height: auto;
 		float: left;
 		background: #8cbbac;
 		color: white;
+		padding-top: 25px;
+		padding-left: 25px;
+    }
+    
+    .square {
+        width: 50px;
+        height: 50px;
+		float: left;
+        background: #636262;
+        margin-left: 10px;
+        margin-right: 10px;
     }
 
+	.menu_section {
+		width: auto;
+		height: auto;
+        float: left;
+		margin-bottom: 25px;
+	}
+
+    .menu_item {
+        width: 200px;
+        height: 25px;
+        float: left;
+        background: #636262;
+		margin-bottom: 25px;
+	}
+    
+    .menu_header {
+        width: 200px;
+        height: 40px;
+        float: left;
+        background: #4a4a4a;
+		margin-bottom: 25px;
+    }
 </style>
 </head>
 <body style="margin:0">
     
     
-    <div id="top_bar">TOP BAR</div>
+    <div id="top_bar">
+    <div class="square" style="width: 175;margin-right: 50;"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    <div class="square"></div>
+    </div>
 
-    <div id="left_menu">LEFT MENU</div>
+    <div id="left_menu">
+    <div class="menu_section">
+    	<div class="menu_header"></div>
+        <div class="menu_item"></div>
+        <div class="menu_item"></div>
+        <div class="menu_item"></div>
+        <div class="menu_item"></div>
+	</div>
+    <div class="menu_section">
+    	<div class="menu_header"></div>
+        <div class="menu_item"></div>
+        <div class="menu_item"></div>
+        <div class="menu_item"></div>
+	</div>
+</div>
     
     <div id="content">CONTENT</div>
     
-    <div id="right_menu">RIGHT MENU</div>
+    <div id="right_menu">
+    <div class="menu_item"></div>
+    <div class="menu_item"></div>
+    <div class="menu_item"></div>
+    <div class="menu_item"></div>
+    <div class="menu_item"></div>
+    <div class="menu_item"></div>
+</div>
     
 </body></html>
