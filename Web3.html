@@ -4,14 +4,28 @@
         <meta http-equiv='Access-Control-Allow-Origin' content='*'>
         <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js'></script>
         <script>
+            const numImages = 4;
+            const imageWidth = 800;
+            const imageHeight = 600;
+            var collectionId = 4501554;
             var images = [];
+            var imageNumbers = [];
             var ctx;
 
-            async function createCanvas() {
+            const unsplash_url = 'https://api.unsplash.com/photos/?client_id=';
+            const unsplash_client_id = 'c5f9b1eca93c76ca6ec67806343281c16b8c757d20055446ed8085936269993d';
+            const size = `${imageWidth}x${imageHeight}`;
+
+            async function start() {
+                await createCanvas();
+                loadImages();
+            }
+
+            function createCanvas() {
                 var canvas = document.createElement('canvas');
                 canvas.id = 'canvasID';
-                canvas.style.width = '1000px';
-                canvas.style.height = '1000px';
+                canvas.style.width = '800px';
+                canvas.style.height = '600px';
                 canvas.style.border = '1px solid #404040';
                 canvas.style.display = 'blocK';
 
@@ -19,29 +33,44 @@
                 body.appendChild(canvas);
 
                 canvas = document.getElementById('canvasID');
+                canvas.width = imageWidth;
+                canvas.height = imageHeight;
                 ctx = canvas.getContext('2d');
+            }
 
-                await getImages();
-                console.log(images[0]);
-                images[0].onload = function() {ctx.drawImage(images[0], 0, 0);}
-                //ctx.drawImage(images[0], 100, 100);
+            async function loadImages() {
+                let shuffle = Math.random()
+                //for (let i = 0; i < numImages; ++i) {
+                    await getImages();
+                //}
+                
+                images[0].onload = function() {ctx.drawImage(images[0], Math.round(-imageWidth+imageWidth*shuffle), Math.round(-imageHeight+imageHeight*shuffle));}
+                images[1].onload = function() {ctx.drawImage(images[1], Math.round(-imageWidth+imageWidth*shuffle), Math.round(imageHeight*shuffle));}
+                images[2].onload = function() {ctx.drawImage(images[2], Math.round(imageWidth*shuffle), Math.round(-imageHeight+imageHeight*shuffle));}
+                images[3].onload = function() {ctx.drawImage(images[3], Math.round(imageWidth*shuffle), Math.round(imageHeight*shuffle));}
             }
 
             async function getImages() {
-                const numItemsToGenerate = 4;
-                const imageWidth = 480;
-                const imageHeight = 480;
-                const collectionID = 1147628;
-                
-                return fetch('https://source.unsplash.com/collection/${collectionID}/${imageWidth}x${imageHeight}/').then((response)=> {
+                /*for (let i = 0; i < numImages; ++i) {
                     let image = new Image();
-                    image.src = response.url;
-                    image.height = imageHeight;
-                    image.width = imageWidth;
                     images.push(image);
+                }*/
+                await fetch(`https://api.unsplash.com/photos/random?client_id=${unsplash_client_id}&collections=${collectionId}&count=${numImages}&w=${imageWidth}&h=${imageHeight}`,{method:'get'})
+                .then(response => response.json()).then(response => {
+                    for (let i = 0; i < numImages; ++i) {
+                        let image = new Image();
+                        image.src = response[i].urls.custom;
+                        console.log(image.url);
+                        images.push(image);
+                    }
                 })
             }
 
+            function generateImageNumbers() {
+                for (let i = 0; i < numImages; ++i) {
+                    imageNumbers.push(Math.floor(Math.random() * 206));
+                }
+            }
         </script>
     </head>
-    <body onload='createCanvas()'></body></html>
+    <body onload='start()'></body></html>
