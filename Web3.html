@@ -58,6 +58,7 @@
                 .then(response => {
                     for (let i = 0; i < numImages; ++i) {
                         let image = new Image();
+                        image.crossOrigin='anonymous';
                         image.src = response[i].urls.custom;
                         images.push(image);
                     }
@@ -97,8 +98,22 @@
                     }
                 }
                 ctx.fillText(line, marginLeft + (600 - ctx.measureText(line).width) / 2, marginTop);
+                download();
             }
 
+            function download(){
+                var canvas = document.getElementById('canvasID');
+                let link = document.createElement('a');
+                link.class = 'button';
+                link.id = 'downloadButton';
+                link.download = 'my-image.png';
+                link.appendChild(document.createTextNode('Download'));
+                link.addEventListener('click', function (e) {
+                    var dataURL = canvas.toDataURL('image/png');
+                    link.href = dataURL;
+                });
+                document.body.appendChild(link);
+            }
         </script>
     </head>
     <body onload='start()'></body></html>
